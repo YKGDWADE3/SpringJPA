@@ -5,7 +5,7 @@ CREATE TABLE Company(
 ) engine=InnoDB DEFAULT CHARSET = gbk;
 
 CREATE TABLE Employee(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     age INT NOT NULL,
     gender VARCHAR(10),

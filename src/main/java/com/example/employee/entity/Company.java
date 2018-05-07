@@ -1,21 +1,21 @@
 package com.example.employee.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Company")
 public class Company {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String companyId;
 
     private int employeesNumber;
 
+    private String companyName;
+
     public Company(){}
-    public Company(int id, String companyId, int employeesNumber) {
+    public Company(int id, int employeesNumber) {
         this.id = id;
-        this.companyId = companyId;
         this.employeesNumber = employeesNumber;
     }
 
@@ -23,11 +23,15 @@ public class Company {
         return id;
     }
 
-    public String getCompanyId() {
-        return companyId;
-    }
-
     public int getEmployeesNumber() {
         return employeesNumber;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

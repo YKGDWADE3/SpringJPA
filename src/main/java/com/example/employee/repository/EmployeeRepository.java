@@ -1,7 +1,11 @@
 package com.example.employee.repository;
 
+import com.example.employee.entity.Company;
 import com.example.employee.entity.Employee;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import sun.awt.SunHints;
@@ -21,10 +25,22 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Query(value = "select * from Employee where companyId = ?1 order by salary desc limit 1",nativeQuery = true)
     Employee findEmployeeByCompanyIdAndMaxSalary(int companyId);
     //4.实现对Employee的分页查询，每页两个数据
-    
+
+    @Override
+    Page<Employee> findAll(Pageable pageable);
+
     //5.查找**的所在的公司的公司名称
+
+    Employee findByName(String name);
 
     //6.将*的名字改成*,输出这次修改影响的行数
 
+    @Modifying
+    @Query("update Employee e set e.name = ?1 where e.name = ?2")
+    int modifyByName(String newName, String name);
     //7.删除姓名是*的employee
+
+    @Modifying
+    @Query("delete from Employee where name = ?1")
+    void deleteByName(String name);
 }

@@ -1,11 +1,15 @@
 package com.example.employee.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Employee")
 public class Employee {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
@@ -17,6 +21,18 @@ public class Employee {
     private int companyId;
 
     private int salary;
+
+    @OneToOne
+    @JoinColumn(name = "id")
+    private Company company;
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
     public Employee(){}
     public Employee(String name, int age, String gender, int salary, int id,int companyId) {
@@ -51,4 +67,5 @@ public class Employee {
     public int getSalary() {
         return salary;
     }
+
 }
